@@ -7,18 +7,29 @@
     </div>
     <ul class="navbar-nav">
       <li>
-        <a href="/welcome/tonasolution" class="nav-link">Home</a>
+        <a
+          routerLink="/welcome/tonasolution"
+          class="nav-link"
+          *ngIf="isUserLoggedIn()"
+          >Home</a
+        >
       </li>
       <li>
-        <a href="/todos" class="nav-link">Todos</a>
+        <a routerLink="/todos" class="nav-link" *ngIf="isUserLoggedIn()"
+          >Todos</a
+        >
       </li>
     </ul>
     <ul class="navbar-nav navbar-collapse justify-content-end">
       <li>
-        <a href="/login" class="nav-link">Login</a>
+        <a routerLink="/login" class="nav-link" *ngIf="!isUserLoggedIn()"
+          >Login</a
+        >
       </li>
       <li>
-        <a href="/logout" class="nav-link">Logout</a>
+        <a routerLink="/logout" class="nav-link" *ngIf="isUserLoggedIn()"
+          >Logout</a
+        >
       </li>
     </ul>
   </nav>
