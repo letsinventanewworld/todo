@@ -15,4 +15,9 @@ export class WelcomeResourceService {
       "http://localhost:8080/hello-world-bean"
     );
   }
+  executeHelloBeanWithPathVariableService(name) {
+    return this.http.get<HelloWorldBean>(
+      `http://localhost:8080/hello-world-bean/path-variable/${name}`
+    );
+  }
 }

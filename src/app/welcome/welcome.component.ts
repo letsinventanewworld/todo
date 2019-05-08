@@ -10,6 +10,7 @@ import { WelcomeResourceService } from "../business/resources/welcome-resource.s
 export class WelcomeComponent implements OnInit {
   private message: string = "Some Welcome Message";
   private welcomeMessageService: string;
+  private welcomeErrorMessage: string;
   private name: string = "";
   constructor(
     private route: ActivatedRoute,
@@ -25,12 +26,26 @@ export class WelcomeComponent implements OnInit {
   getWelcomeMessage() {
     console.log("Get Welcome Message");
     let resourceObserver = this.welcomeResourceService.executeHelloBeanService();
-    resourceObserver.subscribe(response =>
-      this.handleSuccessfulResponse(response)
+    resourceObserver.subscribe(
+      response => this.handleSuccessfulResponse(response),
+      errorResponse => this.handleErrorResponse(errorResponse)
+    );
+  }
+  getWelcomeMessageWithParam() {
+    let resourceObserver = this.welcomeResourceService.executeHelloBeanWithPathVariableService(
+      this.name
+    );
+    resourceObserver.subscribe(
+      response => this.handleSuccessfulResponse(response),
+      errorResponse => this.handleErrorResponse(errorResponse)
     );
   }
 
   handleSuccessfulResponse(response) {
     this.welcomeMessageService = response.message;
+  }
+  handleErrorResponse(errorResponse) {
+    console.log(errorResponse.error.message);
+    this.welcomeErrorMessage = errorResponse.error.message;
   }
 }

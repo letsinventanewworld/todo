@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TodoResourceService } from "../business/resources/todo-resource.service";
 
 export class Todo {
   constructor(
@@ -14,13 +15,27 @@ export class Todo {
   styleUrls: ["./list-todos.component.css"]
 })
 export class ListTodosComponent implements OnInit {
-  todos = [
-    new Todo(1, "Learn de code in Angular", false, new Date()),
-    new Todo(2, "Become expert at java", false, new Date()),
-    new Todo(2, "Become expert at css + html + bootstrap", false, new Date())
-  ];
+  todos: Todo[];
+  message: string;
 
-  constructor() {}
+  constructor(private todoService: TodoResourceService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.retreiveAllTodos();
+  }
+
+  deleteTodo(id) {
+    console.log(id);
+    this.todoService.deleteTodo("tonasolution", id).subscribe(response => {
+      console.log(response);
+      this.message = `The todo ${id} is deleted successfully`;
+      this.retreiveAllTodos();
+    });
+  }
+  retreiveAllTodos() {
+    this.todoService.retreiveAllTodos("tonasolution").subscribe(response => {
+      console.log(response);
+      this.todos = response;
+    });
+  }
 }
