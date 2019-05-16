@@ -7,10 +7,8 @@ export class HardCodedAuthenticationService {
   constructor() {}
 
   authenticate(username, password) {
-    // console.log("Before " + this.isUserLoggedIn());
     if (username === "tonasolution" && password === "dummy") {
       sessionStorage.setItem("authenticaterUser", username);
-      // console.log("After " + this.isUserLoggedIn());
       return true;
     }
     return false;

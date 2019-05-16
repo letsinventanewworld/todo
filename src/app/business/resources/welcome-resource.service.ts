@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 export class HelloWorldBean {
   constructor(public message: string) {}
@@ -16,8 +16,21 @@ export class WelcomeResourceService {
     );
   }
   executeHelloBeanWithPathVariableService(name) {
+    // let basicAuthenticationString = this.createBasicAuthenticationHeader();
+    // let header = new HttpHeaders({
+    //   Authorization: basicAuthenticationString
+    // });
     return this.http.get<HelloWorldBean>(
       `http://localhost:8080/hello-world-bean/path-variable/${name}`
+      // { headers: header }
     );
   }
+
+  // createBasicAuthenticationHeader() {
+  //   let username = "tonasolution";
+  //   let password = "password";
+  //   let basicAuthenticationString =
+  //     "Basic " + window.btoa(username + ":" + password);
+  //   return basicAuthenticationString;
+  // }
 }
